@@ -1,0 +1,48 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+header nav{
+    display: flex;
+    justify-content: space-between;
+    height: 6vh;
+    align-items: center;
+    margin: .3rem;
+    padding: .2rem;
+    background-color: gray;
+    color: white;
+}
+
+header nav h3{
+    margin-left: .3rem;
+}
+
+header nav ul{
+    display: flex;
+    list-style: none;
+    gap: .7rem;
+    margin: .2rem;
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+header nav ul li a:hover{
+    color: blueviolet;
+}
+
+main{
+    margin: 1rem;
+    padding: 1rem;
+}
+
+footer{
+    background-color: gray;
+    color: white;
+}
