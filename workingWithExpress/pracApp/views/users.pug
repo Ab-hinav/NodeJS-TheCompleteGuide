@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{pageTitle}
+    body
+        main
+            if usersAdded.length >0
+                ul
+                    each name in usersAdded 
+                        li #{name}
+            else
+                h1 no Users added

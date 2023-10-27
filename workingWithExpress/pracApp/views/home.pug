@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{pageTitle}
+    body
+        nav
+            h3 #{NavBar}
+            ul
+                li 
+                    a(href="/") link1 
+                    a(href="/users") link2
+
+        form(action="/users",method="post")
+            div
+                label name 
+                input(type="text" ,name="name")
+            button(type="submit") submit
