@@ -11,15 +11,18 @@ async function getProductsFromFile() {
   const data = await fsPromises.readFile(p).catch((err) => {
     return [];
   });
-  if (data != undefined) {
+  if (data.length > 0) {
     return JSON.parse(data);
   }
   return [];
 }
 
 module.exports = class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   async save() {
@@ -38,7 +41,7 @@ module.exports = class Product {
     });
   }
 
-  static async fetchAll() {
+  static fetchAll() {
     return getProductsFromFile();
   }
 };
