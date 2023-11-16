@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Product extends Model {
+  class OrderItems extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsTo(models.User);
-      models.User.hasMany(Product);
     }
   }
-  Product.init(
+  OrderItems.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -21,41 +19,31 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      title: DataTypes.STRING,
-      description: DataTypes.STRING,
-      imageUrl: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "image_url",
-      },
-      price: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        field: "created_at",
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        field: "updated_at",
-      },
-      UserId: {
-        field: "userId",
+      OrderId: {
         type: DataTypes.INTEGER,
-        references: {
-          model: "User",
-          key: "id",
-        },
+        allowNull: false,
+        references: { model: "Order", key: "id" },
+        field: "order_id",
+      },
+      ProductId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "Product", key: "id" },
+        field: "product_id",
+      },
+      Quantity: {
+        type: DataTypes.INTEGER,
+        field: "quantity",
       },
     },
 
     {
       sequelize,
       paranoid: true,
-      modelName: "Product",
-      tableName: "products",
+      modelName: "OrderItems",
+      tableName: "orders_items",
+      timestamps: false,
     },
   );
-  return Product;
+  return OrderItems;
 };

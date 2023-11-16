@@ -10,7 +10,7 @@ exports.getAddProducts = (req, res, next) => {
 };
 
 exports.getAdminProducts = async (req, res, next) => {
-  const products = await db.product.findAll();
+  const products = await req.user.getProducts();
   res.render("admin/products", {
     prods: products,
     pageTitle: "Admin Products",
@@ -25,12 +25,12 @@ exports.getEditProduct = async (req, res, next) => {
   if (!editMode) {
     return res.redirect("/");
   }
-  const product = await db.product.findByPk(prodId);
+  const product = await req.user.getProducts({ where: { id: prodId } });
   console.log(product, prodId);
   return res.render("admin/edit-products", {
     pageTitle: "Edit Product",
     path: "/admin/edit-product",
-    product: product,
+    product: product[0],
   });
 };
 
@@ -43,7 +43,7 @@ exports.postEditProduct = async (req, res, next) => {
   // const product = new Product(prodId, title, imageUrl, description, price);
   // await product.save();
   try {
-    const resp = await db.product.update(
+    const resp = await db.Product.update(
       {
         title: title,
         imageUrl: imageUrl,
@@ -69,12 +69,17 @@ exports.postAddProducts = async (req, res, next) => {
   const description = req.body.description;
 
   // const product = new Product(null, title, imageUrl, description, price);
-  await db.product.create({
+
+  await req.user.createProduct({
     title: title,
     imageUrl: imageUrl,
     description: description,
     price: price,
   });
+
+  // await db.Product.create({
+  //
+  // });
   // await product.save();
   res.redirect("/");
 };
@@ -87,7 +92,7 @@ exports.deleteProduct = async (req, res, next) => {
   //   await Cart.deleteProduct(prodId, product.price);
   // }
 
-  await db.product.destroy({
+  await db.Product.destroy({
     where: {
       id: prodId,
     },
