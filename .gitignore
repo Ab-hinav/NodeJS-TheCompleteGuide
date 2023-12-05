@@ -5,3 +5,4 @@ workingWithExpress/SimpleExpressApp/node_modules
 workingWithExpress/pracApp/node_modules
 Mvb/node_modules
 .idea
+.DS_Store
